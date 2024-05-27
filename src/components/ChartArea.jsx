@@ -77,7 +77,7 @@ export function ChartArea() {
         index="date"
         yAxisWidth={65}
         categories={['Cartera', 'Socios']}
-        colors={['indigo', 'cyan']}
+        colors={['orange', 'cyan']}
         valueFormatter={valueFormatter}
         xAxisLabel="Month of Year"
         yAxisLabel="Revenue (USD)"
