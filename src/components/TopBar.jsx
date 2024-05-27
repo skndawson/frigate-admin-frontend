@@ -1,7 +1,8 @@
+import { RiSearchLine } from '@remixicon/react';
+import { TextInput } from '@tremor/react';
 
 import { 
-    BellIcon,
-    MagnifyingGlassIcon
+    BellIcon
  } from "@heroicons/react/24/solid";
 
 function Topbar (props){
@@ -13,9 +14,8 @@ function Topbar (props){
                 <span className=" text-[23px]">{name}</span>
             </div>
             <div className="flex mr-7 items-center">
-                <div className="border flex items-center w-[400px] rounded-md p-1 h-[40px] mr-10">
-                    <MagnifyingGlassIcon className="w-5 h-5"/>
-                    <input type="search" placeholder="Buscar" className=" border-none w-full focus:outline-none"></input>
+                <div className="flex items-center w-[400px] rounded-md p-1 h-[40px] mr-10">
+                    <TextInput icon={RiSearchLine} placeholder="Buscar" className=' focus:ring-0 focus:outline-none' />
                 </div>
                 <div className="mr-7">
                     <button>
