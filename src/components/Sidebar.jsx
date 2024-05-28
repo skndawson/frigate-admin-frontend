@@ -1,81 +1,70 @@
-
+/* eslint-disable react/prop-types */
+import { createContext, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import {
-    Bars3Icon,
-    HomeIcon,
-    UserGroupIcon,
-    ChartBarSquareIcon,
-    UsersIcon,
-    Cog8ToothIcon,
-    ChevronDownIcon
-} from "@heroicons/react/24/solid";
+import { Bars3Icon } from "@heroicons/react/24/solid";
 
 
-function Sidebar() {
+
+const SidebarContext = createContext(); // Create a context to store the sidebar state
+
+
+//--------------------------------------------------------------------------------------------------------------------
+/**
+ * Represents a sidebar component.
+ *
+ * @component
+ * @param props - The component props.
+ * @param props.children - The children to render inside the sidebar.
+ * @returns {React.ReactElement} The sidebar component.
+ */
+
+export function Sidebar({children}) {
+
+  const [expanded, setExpanded] = useState(true);
+
   return (
-    <div className="w-[290px] min-w-[290px] h-[100vh] p-3 border-r bg-[#fafafa]">
-        <div className="border rounded-md p-2 flex items-center relative">
-            <div className="mr-10 cursor-pointer">
-                <Bars3Icon className="w-5 h-5" />
+    <div className=" h-[100vh] p-2 border-r bg-[#fafafa]">
+        <div className="border rounded-md p-3 flex items-center justify-center">
+            <button onClick={()=> setExpanded(curr => !curr)}>
+                <Bars3Icon className="w-5 " />
+            </button>
+            <div className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0 "}`}>
+                <img src="/src/assets/frigate_logo.png" alt="Frigate Admin Portal" className="w-[120px] ml-6" />
             </div>
-            <div className="cursor-pointer">
-                <img src="/src/assets/frigate_logo.png" alt="Frigate Admin Portal" className="w-[120px]" />
-            </div>
-            
         </div>
 
-        <div className="mt-5">
-            <div>
-                <div className="hover:bg-[#f1f1f1] hover:font-semibold rounded-md p-1">
-                    <Link to={`/home`} className="p-2 flex items-center">
-                        <HomeIcon className="w-5 h-5"/>
-                        <span className="ml-2 text-sm">Inicio</span>
-                    </Link>
-                </div>
-                <div className="hover:bg-[#f1f1f1] hover:font-semibold rounded-md p-1 mt-1">
-                    <Link to={`/usuarios`} className="p-2 flex items-center">
-                        <UserGroupIcon className="w-5 h-5"/>
-                        <span className="ml-2 text-sm">Usuarios</span>
-                    </Link>
-                </div>
-                <div className="hover:bg-[#f1f1f1] hover:font-semibold rounded-md p-1 mt-1 ">
-                    <Link to={`/area-finanzas`} className="p-2 flex items-center relative">
-                        <ChartBarSquareIcon className="w-5 h-5"/>
-                        <span className="ml-2 text-sm">Area Finanzas</span>
-                    </Link>
-                    <div className="relative float-end top-[-25px]  ">
-                        <ChevronDownIcon className="w-4 h-4"/>
-                    </div>
-                </div>
-                <div className="hover:bg-[#f1f1f1] hover:font-semibold rounded-md p-1 mt-1">
-                    <Link to={`/comunicacion-cliente`} className="p-2 flex items-center">
-                        <UsersIcon className="w-5 h-5"/>
-                        <span className="ml-2 text-sm">Comunicacion con Clientes</span>
-                    </Link>
-                </div>
-                <div className="hover:bg-[#f1f1f1] hover:font-semibold rounded-md p-1 mt-1">
-                    <Link to={`/configuracion`} className="p-2 flex items-center">
-                        <Cog8ToothIcon className="w-5 h-5"/>
-                        <span className="ml-2 text-sm">Configuracion</span>
-                    </Link>
-                    <div className="relative float-end top-[-25px] ">
-                        <ChevronDownIcon className="w-4 h-4"/>
-                    </div>
-                    
-                </div>
-                
-                
-                
-            </div>
-
-        </div>
-
-
-
-
+        <SidebarContext.Provider value={{expanded}}> 
+            <div className="mt-8">{children}</div>
+        </SidebarContext.Provider>
     </div>
-
   );
 }
+//--------------------------------------------------------------------------------------------------------------------
 
-export default Sidebar;
+
+
+/**
+ * Represents Sidebar Items component
+ * @param {Object} props - The component props
+ * @param {JSX.Element} props.icon - The icon to render
+ * @param {string} props.text - The text to render
+ * @param {boolean} props.active - The active state of the item 
+ * @returns {React.ReactElement} - The sidebar item component
+ */
+
+export function SidebarItem({icon,text,route,active}){
+
+    const {expanded} = useContext(SidebarContext);
+        
+    return (
+        <div className={`relative hover:bg-[#f1f1f1] rounded-md
+                        ${active ? "bg-[#f1f1f1] font-semibold" : ""}` }>
+
+            <Link to={route} className="p-3 flex items-center hover:font-semibold mt-2 rounded-md">
+                {icon}
+                <span className={`absolute overflow-hidden transition-all text-sm ${expanded ? "w-52 ml-8" : "w-0"}`} >{text}</span>
+            </Link>
+        </div>
+    )
+}
+
