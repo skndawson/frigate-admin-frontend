@@ -2,10 +2,12 @@
 
 # Admin Portal
 
-## VITE - React / Javascript / tailwind
+VITE - React / Javascript / tailwind
 
 docs:
+
 https://vitejs.dev/
+
 https://tailwindcss.com/docs/installation
 
 ### How to start working on the project locally
@@ -20,31 +22,8 @@ https://tailwindcss.com/docs/installation
     `npm run dev`
 
 
+Now you should be able to start working on the project.
 
-
-
-Packages downloaded after initializing the vite project:
-
-```
-react-router-dom         
-tremor-react.            //Framework for dashboard creation
-@headlessui/tailwindcss  //package that needs to be downloaded for tremor
-@heroicons/react         //Icons package
-@remixicon/react         //Icons package
-```
-
-
-Current project structure
-
-SRC/
----- assets/
----- components/
----- data/
----- pages/
----- Routes/
-__ App.jsx
-__ main.jsx
-__ error-page.jsx
 
 
 
