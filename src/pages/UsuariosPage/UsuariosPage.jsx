@@ -97,9 +97,9 @@ const UsuariosPage = () => {
     
     </div>
     )
-    function changeCPage(id){
-        setCurrentPage(id);
-    }
+    //function changeCPage(id){
+    //    setCurrentPage(id);
+    //}
     function nextPage(){
         if(currentPage != npage){
             setCurrentPage(currentPage + 1);
