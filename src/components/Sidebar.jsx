@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState, useContext } from "react";
+import { useState,useContext,createContext } from "react";
 import { Link } from "react-router-dom";
 import { Bars3Icon } from "@heroicons/react/24/solid";
+import { SidebarData } from "../data/SidebarData";
 
 
 
@@ -18,13 +19,14 @@ const SidebarContext = createContext(); // Create a context to store the sidebar
  * @returns {React.ReactElement} The sidebar component.
  */
 
-export function Sidebar({children}) {
+export function Sidebar() {
 
   const [expanded, setExpanded] = useState(true);
 
   return (
     <div className=" h-[100vh] p-2 border-r bg-[#fafafa]">
         <div className="border rounded-md p-3 flex items-center justify-center">
+
             <button onClick={()=> setExpanded(curr => !curr)}>
                 <Bars3Icon className="w-5 " />
             </button>
@@ -33,9 +35,14 @@ export function Sidebar({children}) {
             </div>
         </div>
 
-        <SidebarContext.Provider value={{expanded}}> 
-            <div className="mt-8">{children}</div>
+        <SidebarContext.Provider value={{expanded}}>
+            <div className="mt-8">
+                {SidebarData.map((item, index) => {
+                    return <Submenu item={item} key={index} />
+                })}
+            </div>
         </SidebarContext.Provider>
+        
     </div>
   );
 }
@@ -43,28 +50,46 @@ export function Sidebar({children}) {
 
 
 
+
 /**
- * Represents Sidebar Items component
- * @param {Object} props - The component props
- * @param {JSX.Element} props.icon - The icon to render
- * @param {string} props.text - The text to render
- * @param {boolean} props.active - The active state of the item 
- * @returns {React.ReactElement} - The sidebar item component
+ * Represents a submenu component.
+ *
+ * @component
+ * @param props - The component props.
+ * @param {Object} props.item - The item to render in the submenu.
+ * @returns {React.ReactElement} The submenu component.
  */
 
-export function SidebarItem({icon,text,route,active}){
+
+const Submenu = ({item}) => {
+
+    const [subnav, setSubnav] = useState(false);
+
+    const showSubnav = () => setSubnav(!subnav);
 
     const {expanded} = useContext(SidebarContext);
-        
-    return (
-        <div className={`relative hover:bg-[#f1f1f1] rounded-md
-                        ${active ? "bg-[#f1f1f1] font-semibold" : ""}` }>
 
-            <Link to={route} className="p-3 flex items-center hover:font-semibold mt-2 rounded-md">
-                {icon}
-                <span className={`absolute overflow-hidden transition-all text-sm ${expanded ? "w-52 ml-8" : "w-0"}`} >{text}</span>
+    return (
+        <>
+            <Link to={item.path} className="p-3 flex items-center hover:bg-[#f1f1f1] hover:font-semibold mt-2 rounded-md relative" onClick={item.subNav && showSubnav}>
+                <div className="flex items-center relative">
+                    {item.icon}
+                    <span className={`absolute overflow-hidden transition-all text-sm ${expanded ? "w-52 ml-8" : "w-0"}`}>{item.title}</span>
+                </div>
+                <div className={`absolute  overflow-hidden transition-all ${expanded ? "right-0" : 'w-0'  } `}>
+                    {item.subNav && subnav ? item.iconOpened : item.subNav ? item.iconClosed : null}
+                </div>
             </Link>
-        </div>
+
+            { 
+            expanded && subnav && item.subNav.map((item, index) => {
+                return (
+                    <Link to={item.path} key={index} className="p-2 mt-4 flex items-center  hover:font-semibold mt-1 rounded-md relative left-8 w-fit">
+                        <span className={`absolute overflow-hidden transition-all text-sm ${expanded ? "w-52" : "w-0"}`}>{item.title}</span>
+                    </Link>
+                )
+            })}
+        </>
     )
 }
 
