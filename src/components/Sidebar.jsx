@@ -3,7 +3,7 @@ import { useState,useContext,createContext } from "react";
 import { Link } from "react-router-dom";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { SidebarData } from "../data/SidebarData";
-
+import { useAuth } from "../context/authContext";
 
 
 const SidebarContext = createContext(); // Create a context to store the sidebar state
@@ -23,27 +23,39 @@ export function Sidebar() {
 
   const [expanded, setExpanded] = useState(true);
 
+  const { userLoggedIn } = useAuth();
+
   return (
-    <div className=" h-[100vh] p-2 border-r bg-[#fafafa]">
-        <div className="border rounded-md p-3 flex items-center justify-center">
+    <>
+        {
+             userLoggedIn ? 
+            <div className=" h-[100vh] p-2 border-r bg-[#fafafa]">
+                <div className="border rounded-md p-3 flex items-center justify-center">
 
-            <button onClick={()=> setExpanded(curr => !curr)}>
-                <Bars3Icon className="w-5 " />
-            </button>
-            <div className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0 "}`}>
-                <img src="/src/assets/frigate_logo.png" alt="Frigate Admin Portal" className="w-[120px] ml-6" />
-            </div>
-        </div>
+                    <button onClick={()=> setExpanded(curr => !curr)}>
+                        <Bars3Icon className="w-5 " />
+                    </button>
+                    <div className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0 "}`}>
+                        <img src="/src/assets/frigate_logo.png" alt="Frigate Admin Portal" className="w-[120px] ml-6" />
+                    </div>
+                </div>
 
-        <SidebarContext.Provider value={{expanded}}>
-            <div className="mt-8">
-                {SidebarData.map((item, index) => {
-                    return <Submenu item={item} key={index} />
-                })}
+                <SidebarContext.Provider value={{expanded}}>
+                    <div className="mt-8">
+                        {SidebarData.map((item, index) => {
+                            return <Submenu item={item} key={index} />
+                        })}
+                    </div>
+                </SidebarContext.Provider>
+                
             </div>
-        </SidebarContext.Provider>
+            :
+            <></>
         
-    </div>
+
+        }
+        
+    </>
   );
 }
 //--------------------------------------------------------------------------------------------------------------------
