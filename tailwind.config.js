@@ -18,7 +18,6 @@ export default {
         tremor: {
           brand: {
             faint: colors.orange[50],
-    
             DEFAULT: colors.orange[500],
             emphasis: colors.orange[700],
             inverted: colors.white,
@@ -102,5 +101,5 @@ export default {
     },
   ],
   // eslint-disable-next-line no-undef
-  plugins: [require('@headlessui/tailwindcss'), require('@tailwindcss/forms')],
+  plugins: [require('@headlessui/tailwindcss')],
 }

@@ -50,7 +50,7 @@ function Topbar (props){
             <div className="flex mr-7 items-center">
                 <div className="group border flex items-center w-[400px] rounded-md p-1 h-[40px] mr-10 hover:bg-[#fafafa]">
                     <MagnifyingGlassIcon className="w-5 h-5 fill-gray-300"/>
-                    <input type="search" placeholder="Buscar" className="border-none w-full focus:outline-none focus:ring-0 h-0 group-hover:bg-[#fafafa]"></input>
+                    <input  placeholder="Buscar" className="border-none w-full outline-none ml-1 text-sm group-hover:bg-[#fafafa]"></input>
                 </div>
                 <div className="mr-7">
                     <button>
@@ -62,7 +62,7 @@ function Topbar (props){
                 </div>
                 <div>
                     <button onClick={handleButtonClick}>
-                        <img src={currentUser.photoURL ? currentUser.photoURL : '/src/assets/profile-default-icon.png'} alt="User" className="w-10 h-10 rounded-md object-cover"/>
+                        <img src={currentUser.photoURL ? currentUser.photoURL : '/src/assets/profile-default-icon-optimized.webp'} alt="User" className="w-10 h-10 rounded-md object-cover"/>
                     </button>
                         {showMenu && (
                             <div ref={ref}>
