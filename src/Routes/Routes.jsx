@@ -1,85 +1,106 @@
-//import App from "../App";
-//import ErrorPage from "../error-page";
-import AreaFinanzasPage from "../pages/AreaFinanzasPage/AreaFinanzasPage";
-import HomePage from "../pages/HomePage/HomePage";
-import UsuariosPage from "../pages/UsuariosPage/UsuariosPage";
-import ComunicacionClientesPage from "../pages/ComunicacionClientePage/ComunicacionClientesPage";
-import ConfiguracionPage from "../pages/ConfiguracionPage/ConfiguracionPage";
-import GestionProductosFinancierosPage from "../pages/GestionProductosFinancierosPage/GestionProductosFinancierosPage";
-import GestionTransaccionesPage from "../pages/GestionTransaccionesPage/GestionTransaccionesPage";
-import ReporteAnalisisPage from "../pages/ReporteAnalisisPage/ReporteAnalisisPage";
-import ConexionesPage from "../pages/ConexionesPage/ConexionesPage";
-import SoporteDocumentacionPage from "../pages/SoporteDocumentacionPage/SoporteDocumentacionPage";
-import SeguridadPage from "../pages/SeguridadPage/SeguridadPage";
-import PanelFacturacionPage from "../pages/PanelFacturacionPage/PanelFacturacionPage";
-import Login from "../pages/auth/Login/LoginPage";
-import Register from "../pages/auth/Register/RegisterPage";
+//import AreaFinanzasPage from "../pages/AreaFinanzasPage/AreaFinanzasPage";
+//import HomePage from "../pages/HomePage/HomePage";
+//import UsuariosPage from "../pages/UsuariosPage/UsuariosPage";
+//import ComunicacionClientesPage from "../pages/ComunicacionClientePage/ComunicacionClientesPage";
+//import ConfiguracionPage from "../pages/ConfiguracionPage/ConfiguracionPage";
+//import GestionProductosFinancierosPage from "../pages/GestionProductosFinancierosPage/GestionProductosFinancierosPage";
+//import GestionTransaccionesPage from "../pages/GestionTransaccionesPage/GestionTransaccionesPage";
+//import ReporteAnalisisPage from "../pages/ReporteAnalisisPage/ReporteAnalisisPage";
+//import ConexionesPage from "../pages/ConexionesPage/ConexionesPage";
+//import SoporteDocumentacionPage from "../pages/SoporteDocumentacionPage/SoporteDocumentacionPage";
+//import SeguridadPage from "../pages/SeguridadPage/SeguridadPage";
+//import PanelFacturacionPage from "../pages/PanelFacturacionPage/PanelFacturacionPage";
+//import Login from "../pages/auth/Login/LoginPage";
+//import Register from "../pages/auth/Register/RegisterPage";
 
+import React from "react";
 
-//import { createBrowserRouter } from "react-router-dom";
+const Home = React.lazy(() => import("../pages/HomePage/HomePage"));
+const Usuarios = React.lazy(() => import("../pages/UsuariosPage/UsuariosPage"));
+const ComunicacionClientes = React.lazy(() => import("../pages/ComunicacionClientePage/ComunicacionClientesPage"));
+const Configuracion = React.lazy(() => import("../pages/ConfiguracionPage/ConfiguracionPage"));
+const GestionProductosFinancieros = React.lazy(() => import("../pages/GestionProductosFinancierosPage/GestionProductosFinancierosPage"));
+const GestionTransacciones = React.lazy(() => import("../pages/GestionTransaccionesPage/GestionTransaccionesPage"));  
+const ReporteAnalisis = React.lazy(() => import("../pages/ReporteAnalisisPage/ReporteAnalisisPage"));
+const Conexiones = React.lazy(() => import("../pages/ConexionesPage/ConexionesPage"));
+const SoporteDocumentacion = React.lazy(() => import("../pages/SoporteDocumentacionPage/SoporteDocumentacionPage"));
+const Seguridad  = React.lazy(() => import("../pages/SeguridadPage/SeguridadPage"));
+const PanelFacturacion = React.lazy(() => import("../pages/PanelFacturacionPage/PanelFacturacionPage"));
+const Login = React.lazy(() => import("../pages/auth/Login/LoginPage"));
+const Register = React.lazy(() => import("../pages/auth/Register/RegisterPage"));
+const AreaFinanzas =  React.lazy(() => import("../pages/AreaFinanzasPage/AreaFinanzasPage"));
+
 
 export const routesArray = [  
     {
-        path:"*",
-        element: <Login/>,
+        path:"*",element: <React.Suspense fallback={<>Loading ...</>}> <Login/> </React.Suspense> ,
     },
     {
         path:"/login",
-        element: <Login/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <Login/> </React.Suspense> ,
     },
     {
         path:"/register",
-        element: <Register/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <Register/> </React.Suspense> ,
     },
     {
         path:"/inicio",
-        element: <HomePage/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <Home/> </React.Suspense> ,
     },
     {
         path:"/usuarios",
-        element: <UsuariosPage/>,
+        element:<React.Suspense fallback={<>Loading ...</>}> <Usuarios/> </React.Suspense> 
+            
     },
     {
         path:"/comunicacion-cliente",
-        element: <ComunicacionClientesPage/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <ComunicacionClientes/> </React.Suspense> 
     },
     {
         path:"/area-finanzas",
-        element: <AreaFinanzasPage/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <AreaFinanzas/> </React.Suspense> 
     },
     {
         path:"/area-finanzas/gestion-productos-financieros",
-        element: <GestionProductosFinancierosPage/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <GestionProductosFinancieros/> </React.Suspense> 
     },
     {
         path:"/area-finanzas/gestion-transacciones",
-        element: <GestionTransaccionesPage/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <GestionTransacciones/> </React.Suspense> 
     },
     {
         path:"/area-finanzas/reporte-analisis",
-        element: <ReporteAnalisisPage/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <ReporteAnalisis/> </React.Suspense> 
     },
     {
         path:"/configuracion",
-        element: <ConfiguracionPage/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <Configuracion/> </React.Suspense> 
     },
     {
         path:"/configuracion/conexiones",
-        element: <ConexionesPage/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <Conexiones/> </React.Suspense> 
     },
     {
         path:"/configuracion/soporte-documentacion",
-        element: <SoporteDocumentacionPage/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <SoporteDocumentacion/> </React.Suspense> 
     },
     {
         path:"/configuracion/seguridad",
-        element: <SeguridadPage/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <Seguridad/> </React.Suspense> 
     },
     {
         path:"/configuracion/panel-facturacion",
-        element: <PanelFacturacionPage/>,
+        element: <React.Suspense fallback={<>Loading ...</>}> <PanelFacturacion/> </React.Suspense> 
     },
 ]
+
+
+
+
+
+
+
+
 
 /** 
 export const router = createBrowserRouter([

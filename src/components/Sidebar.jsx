@@ -32,11 +32,12 @@ export function Sidebar() {
             <div className=" h-[100vh] p-2 border-r bg-[#fafafa]">
                 <div className="border rounded-md p-3 flex items-center justify-center">
 
-                    <button onClick={()=> setExpanded(curr => !curr)}>
+                    <button onClick={()=> setExpanded(curr => !curr)} name="nav-bars" >
                         <Bars3Icon className="w-5 " />
                     </button>
                     <div className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0 "}`}>
-                        <img src="/src/assets/frigate_logo.png" alt="Frigate Admin Portal" className="w-[120px] ml-6" />
+                        <link rel="preload"  as="image" href="/src/frigate_logo-optimized.webp" type="image/webp" />
+                        <img src="/src/assets/frigate_logo-optimized.webp" alt="Frigate Admin Portal" className="w-[120px] h-[28px] ml-6" />
                     </div>
                 </div>
 
