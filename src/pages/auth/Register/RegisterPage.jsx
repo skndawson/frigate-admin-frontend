@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+/* eslint-disable no-unused-vars */
+import { useState } from 'react'
 import { Navigate, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../context/authContext'
 import { createUserWithEmail } from '../../../firebase/auth'
@@ -28,10 +29,13 @@ const Register = () => {
             {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
 
             <main className="w-full h-screen flex self-center place-content-center place-items-center">
-                <div className="w-96 text-gray-600 space-y-5 p-4 shadow-xl border rounded-xl">
+                <div className="w-96 text-gray-600 space-y-5 p-4 shadow-xl border rounded-xl top-[-40px] relative">
                     <div className="text-center mb-6">
+                    <div className="flex place-content-center  p-3">
+                            <img src="/src/assets/FrigateLogo-optimized.webp" alt="Logo Frigate" className="w-[130px]" />
+                        </div>
                         <div className="mt-2">
-                            <h3 className="text-gray-800 text-xl font-semibold sm:text-2xl">Create a New Account</h3>
+                            <h3 className="text-gray-800 text-xl font-semibold sm:text-2xl">Crea una cuenta nueva</h3>
                         </div>
 
                     </div>
@@ -41,7 +45,7 @@ const Register = () => {
                     >
                         <div>
                             <label className="text-sm text-gray-600 font-bold">
-                                Email
+                                Correo electrónico
                             </label>
                             <input
                                 type="email"
@@ -54,7 +58,7 @@ const Register = () => {
 
                         <div>
                             <label className="text-sm text-gray-600 font-bold">
-                                Password
+                                Contraseña
                             </label>
                             <input
                                 disabled={isRegistering}
@@ -68,7 +72,7 @@ const Register = () => {
 
                         <div>
                             <label className="text-sm text-gray-600 font-bold">
-                                Confirm Password
+                                Confirmar contraseña
                             </label>
                             <input
                                 disabled={isRegistering}
@@ -87,13 +91,13 @@ const Register = () => {
                         <button
                             type="submit"
                             disabled={isRegistering}
-                            className={`w-full px-4 py-2 text-white font-medium rounded-lg ${isRegistering ? 'bg-gray-300 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 hover:shadow-xl transition duration-300'}`}
+                            className={`w-full px-4 py-2 text-white font-medium rounded-lg ${isRegistering ? 'bg-gray-300 cursor-not-allowed' : 'bg-black hover:bg-[#333333]  hover:shadow-xl transition duration-300'}`}
                         >
-                            {isRegistering ? 'Signing Up...' : 'Sign Up'}
+                            {isRegistering ? 'Registrando...' : 'Registrarme'}
                         </button>
                         <div className="text-sm text-center">
-                            Already have an account? {'   '}
-                            <Link to={'/login'} className="text-center text-sm hover:underline font-bold">Continue</Link>
+                            ¿Ya tienes una cuenta? {'   '}
+                            <Link to={'/login'} className="text-center text-sm hover:underline font-bold">Continuar</Link>
                         </div>
                     </form>
                 </div>

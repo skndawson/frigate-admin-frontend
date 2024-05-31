@@ -1,20 +1,33 @@
 
 import { useEffect, useState } from "react";
-import { MagnifyingGlassIcon, PlusCircleIcon ,ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon, PlusCircleIcon ,ChevronLeftIcon, ChevronRightIcon ,PencilSquareIcon, TrashIcon, Cog8ToothIcon,FunnelIcon} from "@heroicons/react/24/solid";
 import { useAuth } from "../../context/authContext";
 import { Navigate } from "react-router-dom";
 
 const UsuariosPage = () => {
 
-    const [data, setData] = useState(null);
 
-    //fetch api test    
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const {userLoggedIn} = useAuth();
+  
     useEffect(() => {
-        fetch( "https://jsonplaceholder.typicode.com/users")
-        .then((response) => response.json())
-        .then((data) => setData(data))
+      fetch('https://dummyjson.com/users?limit=60')
+        .then(response => response.json())
+        .then(data => {
+          setUsers(data.users);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching users:', error);
+          setLoading(false);
+        });
     }, []);
-
+  
+    if (loading) {
+      return <div>Loading...</div>;
+    }
     /** 
     useEffect(() => {
         fetch( "https://naubank-api.herokuapp.com/api/v1/profile/get_all_profiles",{
@@ -29,38 +42,42 @@ const UsuariosPage = () => {
     */
 
     //Table pagination
-    console.log(data);
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const recordsPerPage = 4;
+    const recordsPerPage = 12;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = lastIndex - recordsPerPage;
-    const records = data?.slice(firstIndex, lastIndex);
-    console.log(records);
-    const npage = Math.ceil(data?.length / recordsPerPage);
-    console.log(npage);
-    //const numbers = [...Array(npage + 1).keys()].slice(1);
-    //console.log(numbers)l
+    const records = users?.slice(firstIndex, lastIndex);
+    const npage = Math.ceil(users?.length / recordsPerPage);
+    const numbers = [...Array(npage + 1).keys()].slice(1);
+    console.log(numbers)
 
-    const {userLoggedIn} = useAuth();
+    
     return (
     
         <div className="flex">
             {!userLoggedIn && (<Navigate to={'/login'} replace={true}/>)}
 
             <div className="w-full">
+                <h1 className="absolute top-5 ml-5 text-[23px]">Página de Usuarios</h1>
             <div className="p-4 relative top-8 h-[85vh]">
                 <div>
-                    <h2>Tabla de usuarios</h2>
-                    <hr />
-                    <div className="relative top-2 flex gap-2">
-                        <button className="border rounded-md py-1 px-2 w-[150px] flex items-center ">
+                    <div className="flex justify-between">
+                        <h2>Tabla de usuarios</h2>
+                        <button className="border p-1 rounded-md"><Cog8ToothIcon className="w-5"/> </button>
+                    </div>
+                    <hr className="mt-2"/>
+                    <div className="relative top-2 flex gap-2 ">
+                        <button className="border rounded-md py-1 px-3  flex items-center ">
                             <PlusCircleIcon className="w-4 h-4"/>
-                            <span className=" text-sm ml-1">Agregar Usuario</span>
+                            <span className=" text-sm ml-2">Agregar Usuario</span>
                         </button>
-                        <button type="search" className="border rounded-md border-gray-200">
+                        <button className="border rounded-md py-1 px-3  flex items-center">
+                            <FunnelIcon className="w-4"></FunnelIcon>
+                            <span className=" text-sm ml-2"> Filtrar </span>
+                        </button>
+                        <button type="search" className="border rounded-md border-gray-200 p-2">
                             <MagnifyingGlassIcon className="w-4 h-4 "/>
                         </button>
+
                     </div>
                 </div>
                 <div className="relative top-6  w-full">
@@ -72,32 +89,43 @@ const UsuariosPage = () => {
                                 <th>Telefono</th>
                                 <th>Status</th>
                                 <th>Rol</th>
-                                <th className="p-1 rounded-r-md">Opciones</th>
+                                <th className="p-1 rounded-r-md text-center">Opciones</th>
                             </tr>
                         </thead>
                                     
                         {records?.map((user) => (
-                            <tr key={user.id} className="border-b-[1px] text-sm border-gray-200">
-                                <td key={user.id} className="p-2">{user.name}</td>
+                            <tr key={user.id} className="text-sm border-gray-200 hover:bg-[#f1f1f1]" >
+                                <td key={user.id} className="p-2">{user.firstName}</td>
                                 <td>{user.email}</td>
                                 <td>{user.phone}</td>
                                 <td>activo</td>
                                 <td>admin</td>
-                                <td>opciones</td>
+                                <td className="flex item-center justify-center">
+                                    <PencilSquareIcon className="w-4 m-1 cursor-pointer" / >
+                                    <TrashIcon className="w-4 m-1 cursor-pointer"/>
+                                </td>
                             </tr>
                         ))}
                                         
                     </table>
-                    <nav className="mt-5">
-                        <ul className="pagination flex gap-5">
-                            <li className="page-item hover:underline">
+                    <nav className="mt-5 relative float-end right-5">
+                        <ul className="pagination flex gap-0 items-center">
+                            <li className="page-item hover:underline mr-3">
                                 <a href='#' onClick={prePage}  className="page-link flex items-center text-sm">
                                     <ChevronLeftIcon className="w-4 h-4"/>
                                     <span className="ml-1">Prev</span>
                                 </a >
                             </li>
+                            {
+                                numbers.map((n,i) => (
+                                    <li className={`${currentPage === n ? 'bg-orange-200' : ''} border px-2`} key={i} >
+                                        <a href="#" className="" onClick={()=> changeCPage(n)}>{n}</a>
+                                    </li>
+                                ))
+                            }
+
                             
-                            <li className="page-item hover:underline">
+                            <li className="page-item hover:underline ml-3">
                                 <a href="#" onClick={nextPage} className="page-link flex items-center text-sm" >
                                     <span className="mr-1">Next</span>
                                     <ChevronRightIcon className="w-4 h-4"/>
@@ -118,9 +146,9 @@ const UsuariosPage = () => {
 
 
 )
-    //function changeCPage(id){
-    //    setCurrentPage(id);
-    //}
+    function changeCPage(id){
+        setCurrentPage(id);
+    }
     function nextPage(){
         if(currentPage != npage){
             setCurrentPage(currentPage + 1);

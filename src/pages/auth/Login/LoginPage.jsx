@@ -89,10 +89,10 @@ const Login = () => {
                             disabled={isSigningIn}
                             className={`w-full px-4 py-2 text-white font-medium rounded-lg ${isSigningIn ? 'bg-gray-300 cursor-not-allowed' : 'bg-black hover:bg-[#333333]   hover:shadow-xl transition duration-300'}`}
                         >
-                            {isSigningIn ? 'Inciando sesion...' : 'Iniciar sesion'}
+                            {isSigningIn ? 'Inciando sesión...' : 'Iniciar sesión'}
                         </button>
                     </form>
-                    <p className="text-center text-sm"> Aun no tienes cuenta? <Link to={'/register'} className="hover:underline font-bold">Registrate</Link></p>
+                    <p className="text-center text-sm"> ¿Aún no tienes cuenta? <Link to={'/register'} className="hover:underline font-bold">Registrarme</Link></p>
                     <div className='flex flex-row text-center w-full'>
                         <div className='border-b-2 mb-2.5 mr-2 w-full'></div><div className='text-sm font-bold w-fit'>o</div><div className='border-b-2 mb-2.5 ml-2 w-full'></div>
                     </div>
