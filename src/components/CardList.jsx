@@ -23,11 +23,11 @@ export function CardList() {
       rating: '0 open PR',
     },
     {
-        city: 'Lissbon',
+        city: 'Helsinki',
         rating: '0 open PR',
       },
       {
-        city: 'Lissbon',
+        city: 'Oslo',
         rating: '0 open PR',
       },
   ];

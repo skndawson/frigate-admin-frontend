@@ -1,17 +1,29 @@
 
 import './App.css'
-import { Outlet } from 'react-router-dom';
-import  { Sidebar} from './components/Sidebar';
+import { useRoutes } from 'react-router-dom';
+import { AuthProvider } from './context/authContext';
+import { routesArray } from './Routes/Routes';
+import { Sidebar } from './components/Sidebar';
+import Topbar from './components/TopBar';
 
 
 function App() {
+
+  let routesElement = useRoutes(routesArray);
+ 
   return (
-    <>
-      <div className='flex'>
-        <Sidebar/>
-        <Outlet/>
-      </div>
-    </>
+    
+    <AuthProvider>
+        <div className='flex'>
+            <Sidebar/>
+            <div className='w-full h-screen flex flex-col'>
+              <Topbar/>
+              {routesElement}
+              </div>
+        </div>
+        
+    </AuthProvider>
+    
   )
 }
 
