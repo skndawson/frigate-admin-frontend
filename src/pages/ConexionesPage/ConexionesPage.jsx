@@ -10,6 +10,7 @@ const ConexionesPage = () => {
     return (
         <div className="w-full h-screen">
             {!userLoggedIn && (<Navigate to={'/login'} replace={true}/>)}
+
             <h1 className="ml-10"> Conexiones</h1>
         </div>
         

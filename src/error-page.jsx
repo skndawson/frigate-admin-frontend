@@ -1,12 +1,11 @@
-import React from "react";
+
 import { useRouteError, isRouteErrorResponse } from "react-router-dom";
+
 
 const ErrorPage = () => {
     const error = useRouteError();
     let errorMessage = ''
     if (isRouteErrorResponse(error)) {
-        
-
         errorMessage = error.data.message || error.statusText;
     }else if(error instanceof Error){
         errorMessage = error.message;
