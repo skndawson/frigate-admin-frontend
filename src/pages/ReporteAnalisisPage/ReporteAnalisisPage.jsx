@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
 
 
+
 const ReporteAnalisisPage = () => {
 
     //hook auth context to check if user is logged in.
